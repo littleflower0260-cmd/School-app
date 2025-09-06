@@ -1,0 +1,6 @@
+/* css/dark.css - small adjustments (if you want to use) */
+:root{ --bg:#071124; --card:#071a2a; --text:#e6eef8; --muted:#9fb1c7; --primary:#60a5fa; --accent:#9f7aea; }
+body{background:var(--bg); color:var(--text)}
+.card{background:var(--card); border:1px solid rgba(255,255,255,0.04)}
+input,select,textarea{border:1px solid rgba(255,255,255,0.06)}
+

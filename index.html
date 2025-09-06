@@ -1,0 +1,60 @@
+<!-- index.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Little Flower School</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="schoolLogo" src="/assets/logo.png" alt="logo" width="42" height="42"/>
+      <div>
+        <div id="schoolNameDisplay">Little Flower School</div>
+        <div class="muted small">Digital School Portal</div>
+      </div>
+    </div>
+    <div class="actions">
+      <a href="login.html" class="btn">Login</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Welcome to Little Flower School</h2>
+      <p class="muted">A tiny offline-first school portal. Login to access dashboard.</p>
+      <div class="row">
+        <a href="calendar.html" class="btn outline">Calendar & Events</a>
+        <a href="gallery.html" class="btn outline">Gallery</a>
+        <a href="notifications.html" class="btn outline">Notices</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Latest Notices</h3>
+      <div id="homeNotices" class="muted">Loading…</div>
+    </section>
+
+    <section class="card">
+      <h3>Upcoming Events</h3>
+      <div id="homeEvents" class="muted">Loading…</div>
+    </section>
+  </main>
+
+  <footer class="muted">Developed by Shubham Arun Hajare • Contact: 9022761401</footer>
+
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    import { loadSession } from './js/common.js';
+    // load notices & events
+    (async ()=>{
+      const { data: nots } = await supabase.from('notifications').select('*').order('created_at',{ascending:false}).limit(5);
+      const { data: ev } = await supabase.from('calendar_events').select('*').order('date',{ascending:true}).limit(6);
+      document.getElementById('homeNotices').innerHTML = nots && nots.length? nots.map(n=>`<div><strong>${n.title}</strong><div class="muted">${n.message}</div></div>`).join('') : '<div class="muted">No notices</div>';
+      document.getElementById('homeEvents').innerHTML = ev && ev.length? ev.map(e=>`<div><strong>${e.title}</strong><div class="small">${e.date}</div></div>`).join('') : '<div class="muted">No events</div>';
+    })();
+  </script>
+</body>
+</html>

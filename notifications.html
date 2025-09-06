@@ -1,0 +1,19 @@
+<!-- notifications.html -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>Notices</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+  <header class="topbar"><div class="brand"><img class="schoolLogo" src="/assets/logo.png" width="42" height="42"/><div><div id="schoolNameDisplay">Little Flower School</div><div class="muted small">Notices</div></div></div><div class="actions"><a href="/" class="btn outline">Home</a></div></header>
+  <main class="container">
+    <section class="card"><h3>Notices</h3><div id="noticesList">Loading…</div></section>
+  </main>
+
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    (async ()=>{
+      const { data } = await supabase.from('notifications').select('*').order('created_at',{ascending:false});
+      document.getElementById('noticesList').innerHTML = data.map(n=>`<div class="card"><strong>${n.title}</strong><div class="muted">${n.message}</div><div class="small">${n.target}</div></div>`).join('');
+    })();
+  </script>
+</body>
+</html>

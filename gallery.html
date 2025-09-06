@@ -1,0 +1,20 @@
+<!-- gallery.html -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>Gallery</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+  <header class="topbar"><div class="brand"><img class="schoolLogo" src="/assets/logo.png" width="42" height="42"/><div><div id="schoolNameDisplay">Little Flower School</div><div class="muted small">Gallery</div></div></div><div class="actions"><a href="/" class="btn outline">Home</a></div></header>
+
+  <main class="container">
+    <section class="card"><h3>Gallery</h3><div id="galleryArea">Loading…</div></section>
+  </main>
+
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    (async ()=>{
+      const { data } = await supabase.from('gallery').select('*').order('created_at',{ascending:false});
+      document.getElementById('galleryArea').innerHTML = data.map(g=>`<div class="card"><a href="${g.link}" target="_blank">${g.title || g.link}</a><div class="muted">${g.category}</div></div>`).join('');
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- teacher.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teacher — Little Flower School</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img class="schoolLogo" src="/assets/logo.png" width="42" height="42"/><div><div id="schoolNameDisplay">Little Flower School</div><div class="muted small">Teacher Dashboard</div></div></div>
+    <div class="actions">
+      <span id="teacherName" class="muted"></span>
+      <button onclick="logout()" class="btn outline">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card"><h3>Students</h3><div style="overflow:auto"><table><thead><tr><th>Name</th><th>Class</th><th>Roll</th><th>Mark</th></tr></thead><tbody id="teacherStudentsTbody"></tbody></table></div></section>
+
+    <section class="card"><h3>Your Attendance</h3><div id="teacherAttList" class="muted">Loading…</div></section>
+
+    <section class="card"><h3>Quick Actions</h3>
+      <button onclick="location.href='calendar.html'" class="btn">Open Calendar</button>
+      <button onclick="location.href='notifications.html'" class="btn outline">Notices</button>
+    </section>
+  </main>
+
+  <script type="module">
+    import './js/supabase.js';
+    import './js/common.js';
+    import './js/teacher.js';
+    window.logout = () => { localStorage.removeItem('lfs_user'); location.href = '/'; };
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!-- calendar.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calendar — Little Flower School</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img class="schoolLogo" src="/assets/logo.png" width="42" height="42"/><div><div id="schoolNameDisplay">Little Flower School</div><div class="muted small">Events Calendar</div></div></div>
+    <div class="actions"><a href="/" class="btn outline">Home</a></div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h3>Year Calendar (Events)</h3>
+      <div id="calendarGrid" class="calendar"></div>
+      <div style="margin-top:10px"><button onclick="location.href='admin.html'" class="btn outline">Admin » Manage Events</button></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+    (async ()=>{
+      const { data } = await supabase.from('calendar_events').select('*').order('date',{ascending:true});
+      const grid = document.getElementById('calendarGrid');
+      grid.innerHTML = data.map(e=>`<div class="card"><strong>${e.title}</strong><div class="small">${e.date}</div><div class="muted">${e.description||''}</div></div>`).join('');
+    })();
+  </script>
+</body>
+</html>

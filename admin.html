@@ -1,0 +1,99 @@
+<!-- admin.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Little Flower School</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="schoolLogo" src="/assets/logo.png" width="42" height="42"/>
+      <div>
+        <div id="schoolNameDisplay">Little Flower School</div>
+        <div class="muted small">Admin Dashboard</div>
+      </div>
+    </div>
+    <div class="actions">
+      <span id="adminName" class="muted"></span>
+      <button onclick="logout()" class="btn outline">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h3>Management Modules</h3>
+      <div class="row">
+        <button onclick="document.getElementById('usersPanel').scrollIntoView()" class="btn">Users</button>
+        <button onclick="document.getElementById('notificationsPanel').scrollIntoView()" class="btn">Notifications</button>
+        <button onclick="document.getElementById('eventsPanel').scrollIntoView()" class="btn">Events</button>
+        <button onclick="document.getElementById('galleryPanel').scrollIntoView()" class="btn">Gallery</button>
+        <button onclick="document.getElementById('leavesPanel').scrollIntoView()" class="btn">Leaves</button>
+      </div>
+    </section>
+
+    <section id="usersPanel" class="card">
+      <h3>Users</h3>
+      <div class="row">
+        <button onclick="addUser()" class="btn">Add user</button>
+      </div>
+      <div style="margin-top:10px;overflow:auto">
+        <table>
+          <thead><tr><th>Username</th><th>Name</th><th>Role</th><th>Class</th><th>Actions</th></tr></thead>
+          <tbody id="usersTbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="notificationsPanel" class="card">
+      <h3>Notifications</h3>
+      <div class="row">
+        <button onclick="postNotification()" class="btn">Post</button>
+      </div>
+      <div id="notifList" style="margin-top:8px"></div>
+    </section>
+
+    <section id="eventsPanel" class="card">
+      <h3>Events</h3>
+      <div class="row">
+        <button onclick="addEvent()" class="btn">Add Event</button>
+      </div>
+      <div id="eventsList" style="margin-top:8px"></div>
+    </section>
+
+    <section id="galleryPanel" class="card">
+      <h3>Gallery</h3>
+      <div class="row"><button onclick="addGallery()" class="btn">Add Link</button></div>
+      <div id="galleryList" style="margin-top:8px"></div>
+    </section>
+
+    <section id="leavesPanel" class="card">
+      <h3>Leaves</h3>
+      <div id="leavesList"></div>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h3>Settings</h3>
+      <label>School name</label>
+      <input id="setSchoolName" placeholder="School name"/>
+      <label>Logo URL</label>
+      <input id="setLogoUrl" placeholder="Image URL (Drive or hosted)"/>
+      <label>Theme</label>
+      <select id="setTheme"><option value="light">Light</option><option value="dark">Dark</option></select>
+      <div class="row" style="margin-top:8px">
+        <button onclick="saveSettings()" class="btn">Save</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    import './js/supabase.js';
+    import './js/common.js';
+    import './js/admin.js';
+    window.logout = () => { localStorage.removeItem('lfs_user'); location.href = '/'; };
+  </script>
+</body>
+</html>
